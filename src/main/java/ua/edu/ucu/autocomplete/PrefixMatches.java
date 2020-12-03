@@ -1,6 +1,10 @@
 package ua.edu.ucu.autocomplete;
 
+import ua.edu.ucu.collections.Queue;
 import ua.edu.ucu.tries.Trie;
+import ua.edu.ucu.tries.Tuple;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -11,30 +15,49 @@ public class PrefixMatches {
     private Trie trie;
 
     public PrefixMatches(Trie trie) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.trie = trie;
     }
 
     public int load(String... strings) {
-        throw new UnsupportedOperationException("Not supported yet.");        
+        int sizeAdded = 0;
+        for (String string: strings) {
+            String[] splittedString = string.split("\\s+");
+            for (String str: splittedString) {
+                if (str.length() > 2) {
+                    Tuple t = new Tuple(str, str.length());
+                    trie.add(t);
+                    sizeAdded++;
+                }
+            }
+        }
+        return sizeAdded;
     }
 
     public boolean contains(String word) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return trie.contains(word);
     }
 
     public boolean delete(String word) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return trie.delete(word);
     }
 
     public Iterable<String> wordsWithPrefix(String pref) {
-        throw new UnsupportedOperationException("Not supported yet.");        
+        return trie.wordsWithPrefix(pref);
     }
 
     public Iterable<String> wordsWithPrefix(String pref, int k) {
-        throw new UnsupportedOperationException("Not supported yet.");        
+        Iterable<String> prefixIterator = wordsWithPrefix(pref);
+
+        Queue queue = new Queue();
+        for (String word: prefixIterator) {
+            if (word.length() < pref.length() + k) {
+                queue.enqueue(word);
+            }
+        }
+        return queue;
     }
 
     public int size() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return trie.size();
     }
 }
