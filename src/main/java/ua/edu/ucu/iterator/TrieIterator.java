@@ -13,14 +13,14 @@ public class TrieIterator implements Container {
 
     @Override
     public java.util.Iterator<String> getIterator() {
-        return new QueueIterator(words);
+        return new QueueIteratorQ(words);
     }
 
-    private class QueueIterator implements Iterator<String> {
+    private class QueueIteratorQ implements IteratorQ<String> {
 
         private Queue q;
 
-        private QueueIterator(Queue q) {
+        private QueueIteratorQ(Queue q) {
             this.q = q;
         }
 
