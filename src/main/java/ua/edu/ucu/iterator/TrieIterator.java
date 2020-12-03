@@ -2,23 +2,25 @@ package ua.edu.ucu.iterator;
 
 import ua.edu.ucu.collections.Queue;
 
-public class trieIterator implements Container {
-    public Queue words;
+import java.util.NoSuchElementException;
 
-    public trieIterator(Queue queue) {
+public class TrieIterator implements Container {
+    private Queue words;
+
+    public TrieIterator(Queue queue) {
         this.words = queue;
     }
 
     @Override
     public java.util.Iterator<String> getIterator() {
-        return new queueIterator(words);
+        return new QueueIterator(words);
     }
 
-    private class queueIterator implements Iterator<String> {
+    private class QueueIterator implements Iterator<String> {
 
         private Queue q;
 
-        private queueIterator(Queue q) {
+        private QueueIterator(Queue q) {
             this.q = q;
         }
 
@@ -32,6 +34,9 @@ public class trieIterator implements Container {
 
         @Override
         public String next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
             return (String) q.dequeue();
         }
     }

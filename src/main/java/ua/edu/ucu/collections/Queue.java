@@ -1,7 +1,7 @@
 package ua.edu.ucu.collections;
 
 import ua.edu.ucu.collections.immutable.ImmutableLinkedList;
-import ua.edu.ucu.iterator.trieIterator;
+import ua.edu.ucu.iterator.TrieIterator;
 
 import java.util.Iterator;
 
@@ -35,7 +35,7 @@ public class Queue implements Iterable<String> {
 
     @Override
     public Iterator<String> iterator() {
-        trieIterator iterator = new trieIterator(this);
+        TrieIterator iterator = new TrieIterator(this);
         return iterator.getIterator();
     }
 }

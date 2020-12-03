@@ -4,7 +4,8 @@ package ua.edu.ucu.tries;
 import ua.edu.ucu.collections.Queue;
 
 public class RWayTrie implements Trie {
-    private static int R = 256; // radix
+    private static final int R = 256; // radix
+    private static final int ASCII = 97; // radix
     private Node root; // root of trie
 
     private static class Node
@@ -33,7 +34,7 @@ public class RWayTrie implements Trie {
             int d = 0;
 
             while (d != t.weight) {
-                int index = t.term.charAt(d) - 97;
+                int index = t.term.charAt(d) - ASCII;
                 if (curNode.next[index] == null) {
                     curNode.next[index] = new Node(t);
                 }
@@ -58,7 +59,7 @@ public class RWayTrie implements Trie {
 
         int d = 0;
         while (d != t.weight) {
-            int index = t.term.charAt(d) - 97;
+            int index = t.term.charAt(d) - ASCII;
             if (curNode.next[index] == null) {
                 return false;
             }
@@ -74,7 +75,7 @@ public class RWayTrie implements Trie {
 
         int d = 0;
         while (d != word.length()) {
-            int index = word.charAt(d) - 97;
+            int index = word.charAt(d) - ASCII;
             if (curNode.next[index] == null) {
                 return null;
             }
@@ -107,7 +108,7 @@ public class RWayTrie implements Trie {
         }
 
         for (char c = 0; c < R; c++) {
-            collect(x.next[c], pre + (char) (c + 97), q);
+            collect(x.next[c], pre + (char) (c + ASCII), q);
         }
     }
 
@@ -125,8 +126,9 @@ public class RWayTrie implements Trie {
         if (x.tuple != null) {
             size++;
         }
-        for (char c = 0; c < R; c++)
-            size += size(x.next[c+97]);
+        for (char c = 0; c < R; c++) {
+            size += size(x.next[c + ASCII]);
+        }
         return size;
     }
 
